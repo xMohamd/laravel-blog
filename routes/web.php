@@ -25,6 +25,7 @@ Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show')->
 Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit')->where('id', '[0-9]+');
 Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update')->where('id', '[0-9]+');
 Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy')->where('id', '[0-9]+');
+Route::get('/posts/trash', [PostController::class, 'trash'])->name('posts.trash');
 Route::fallback(function () {
     return 'Route not found';
 });
