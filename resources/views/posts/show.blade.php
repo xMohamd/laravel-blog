@@ -17,8 +17,13 @@
                     <th scope="col" class="px-6 py-3">
                         published_at
                     </th>
-                    <th scope="col">body</th>
+                    <th scope="col" class="px-6 py-3">
+                        User
+                    </th>
 
+                    <th scope="col" class="px-6 py-3">
+                        body
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -36,6 +41,10 @@
                     <td class="px-6 py-4">
                         {{ $post->published_at }}
                     </td>
+                    <td class="px-6 py-4">
+                        {{ $post->user->name }}
+                    </td>
+
                     <td class="px-6 py-4">
                         {{ $post->body }}
                     </td>

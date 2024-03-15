@@ -17,6 +17,9 @@
                     <th scope="col" class="px-6 py-3">
                         published_at
                     </th>
+                    <th scope="col" class="px-6 py-3">
+                        User
+                    </th>
 
                 </tr>
             </thead>
@@ -38,6 +41,10 @@
                             </td>
                             <td class="px-6 py-4">
                                 {{ $post->published_at }} </td>
+                            <td class="px-6 py-4">
+                                {{ $post->user->name }}
+                            </td>
+
                         </tr>
                     @endforeach
                 @else

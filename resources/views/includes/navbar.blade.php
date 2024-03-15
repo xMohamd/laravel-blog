@@ -9,10 +9,14 @@
                     <div class="hidden md:block">
                         <div class="ml-10 flex items-baseline space-x-4">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                            <a href="/posts" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
+                            <a href="/posts"
+                                class="{{ Request::is('posts') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700' }} rounded-md px-3 py-2 text-sm font-medium"
                                 aria-current="page">Posts</a>
                             <a href="/posts/trash"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Trash</a>
+                                class="{{ Request::is('posts/trash') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700' }} hover:text-white rounded-md px-3 py-2 text-sm font-medium">Trash</a>
+                            <a href="/posts/create"
+                                class="{{ Request::is('posts/create') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700' }} hover:text-white rounded-md px-3 py-2 text-sm font-medium">Add
+                                Post</a>
                         </div>
                     </div>
                 </div>

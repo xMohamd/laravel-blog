@@ -19,6 +19,9 @@
                         published_at
                     </th>
                     <th scope="col" class="px-6 py-3">
+                        User
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                         actions
                     </th>
 
@@ -40,6 +43,10 @@
                         <td class="px-6 py-4">
                             {{ $post->published_at }}
                         </td>
+                        <td class="px-6 py-4">
+                            {{ $post->user->name }}
+                        </td>
+
                         <td class="px-6 py-4">
                             <div class="flex">
                                 <form action="{{ route('posts.edit', $post->id) }}" method="GET">
