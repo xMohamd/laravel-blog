@@ -9,7 +9,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::all(); // Fetch all posts from the database
+        $posts = Post::paginate(10); // Fetch paginated posts from the database
         return view('posts.index', compact('posts')); // Pass the $posts variable to the view
     }
 
@@ -39,8 +39,11 @@ class PostController extends Controller
     {
     }
 
-    public function destroy(string $id)
+    public function destroy($id)
     {
+        $post = Post::find($id);
+        $post->delete();
+        return redirect()->route('posts.index');
     }
     public function trash()
     {
