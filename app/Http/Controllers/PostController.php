@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UpdatePostRequest;
 
 class PostController extends Controller
 {
@@ -14,6 +16,11 @@ class PostController extends Controller
         // \App\Models\User::class::factory(10)->create();
         $posts = Post::with('user')->paginate(10); // Fetch paginated posts from the database
         return view('posts.index', ['posts' => $posts]); // Pass the $posts variable to the view
+    }
+    public function users()
+    {
+        $users = User::with('posts')->paginate(10);
+        return view('posts.users', ['users' => $users]);
     }
 
     public function create()
@@ -25,9 +32,8 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|max:255',
             'body' => 'required',
-            'user_id' => 'required'
         ]);
-        Post::create(['title' => $request->title, 'body' => $request->body, 'enabled' => $request->enabled, 'published_at' => Carbon::now(), 'user_id' => $request->user_id,]);
+        Post::create(['title' => $request->title, 'body' => $request->body, 'enabled' => $request->enabled, 'published_at' => Carbon::now(), 'user_id' => Auth::id()]);
         return redirect()->route('posts.index');
     }
 
@@ -44,14 +50,9 @@ class PostController extends Controller
         return view('posts.edit', ['post' => $post]);
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdatePostRequest $request, $id)
     {
-        $request->validate([
-            'title' => 'required|max:255',
-            'body' => 'required',
-        ]);
-        $post = Post::find($id);
-        $post->update($request->all());
+        Post::where('id', $id)->update($request->only(['title', 'body', 'enabled']));
         return redirect()->route('posts.index');
     }
 
