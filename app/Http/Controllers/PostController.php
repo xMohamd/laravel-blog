@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Post;
@@ -27,13 +28,14 @@ class PostController extends Controller
     {
         return view('posts.create', ['users' => User::all()]);
     }
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        $request->validate([
-            'title' => 'required|max:255',
-            'body' => 'required',
-        ]);
-        Post::create(['title' => $request->title, 'body' => $request->body, 'enabled' => $request->enabled, 'published_at' => Carbon::now(), 'user_id' => Auth::id()]);
+        $request->validated();
+        $imagePath = null;
+        if ($request->has('image') && $request->file('image')->isValid()) {
+            $imagePath = $request->file('image')->store('posts', ['disk' => 'public']);
+        }
+        Post::create(['title' => $request->title, 'body' => $request->body, 'enabled' => $request->enabled, 'published_at' => Carbon::now(), 'user_id' => Auth::id(), 'image' => $imagePath]);
         return redirect()->route('posts.index');
     }
 

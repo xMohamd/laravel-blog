@@ -24,11 +24,14 @@
                     <th scope="col" class="px-6 py-3">
                         body
                     </th>
+                    <th scope="col" class="px-6 py-3">
+                        image
+                    </th>
+
                 </tr>
             </thead>
             <tbody>
-                <tr
-                    class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b">
+                <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                         {{ $post->id }}
                     </th>
@@ -48,7 +51,9 @@
                     <td class="px-6 py-4">
                         {{ $post->body }}
                     </td>
-
+                    @if ($post->image)
+                        <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="mb-4">
+                    @endif
                 </tr>
             </tbody>
         </table>
